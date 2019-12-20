@@ -72,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
             float fx = values[0];
             float fy = values[1]*-1;
-            changeXY(fx, fy);
+            float fz = values[2];
+            changeXY(fx, fy, fz);
 
         }
 
@@ -82,10 +83,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void changeXY(float x, float y){
+    private void changeXY(float x, float y, float z){
         float xx = x*viewW/20 + viewW/2;
         float yy = y*viewH/20 + viewH/2;
-        myView.setXY(xx, yy);
+        myView.setXY(xx, yy, z);
     }
 
 
