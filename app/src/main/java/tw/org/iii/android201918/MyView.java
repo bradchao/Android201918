@@ -10,7 +10,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 public class MyView extends View {
-    private float viewW, viewH;
+    private float viewW, viewH, ballX, ballY;
     private boolean isInit;
     private Paint linePaint, ballPaint;
 
@@ -29,6 +29,8 @@ public class MyView extends View {
         ballPaint.setColor(Color.YELLOW);
         ballPaint.setStrokeWidth(2);
 
+        ballX = viewW / 2; ballY = viewH / 2;
+
         isInit = true;
 
     }
@@ -38,9 +40,15 @@ public class MyView extends View {
         super.onDraw(canvas);
         if (!isInit) init();
 
+        canvas.drawCircle(ballX, ballY, 40, ballPaint);
         canvas.drawLine(0, viewH/2, viewW, viewH/2,linePaint);
         canvas.drawLine(viewW/2, 0, viewW/2, viewH,linePaint);
 
-        canvas.drawCircle(viewW/2, viewH/2, 40, ballPaint);
     }
+
+    public void setXY( float x, float y){
+        ballX = x; ballY = y;
+        invalidate();
+    }
+
 }
