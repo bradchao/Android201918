@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 public class MyView extends View {
     private float viewW, viewH;
     private boolean isInit;
-    private Paint linePaint;
+    private Paint linePaint, ballPaint;
 
     public MyView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -25,6 +25,12 @@ public class MyView extends View {
         linePaint.setColor(Color.RED);
         linePaint.setStrokeWidth(2);
 
+        ballPaint = new Paint();
+        ballPaint.setColor(Color.YELLOW);
+        ballPaint.setStrokeWidth(2);
+
+        isInit = true;
+
     }
 
     @Override
@@ -35,5 +41,6 @@ public class MyView extends View {
         canvas.drawLine(0, viewH/2, viewW, viewH/2,linePaint);
         canvas.drawLine(viewW/2, 0, viewW/2, viewH,linePaint);
 
+        canvas.drawCircle(viewW/2, viewH/2, 40, ballPaint);
     }
 }
