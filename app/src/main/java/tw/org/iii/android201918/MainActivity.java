@@ -19,11 +19,19 @@ public class MainActivity extends AppCompatActivity {
     private Sensor sensor;
     private MyListener myListener;
 //    private TextView x, y,z;
+    private int viewW, viewH;
+    private MyView myView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        myView = findViewById(R.id.myView);
+
+        viewW = getWindowManager().getDefaultDisplay().getWidth();
+        viewH = getWindowManager().getDefaultDisplay().getHeight();
+        Log.v("brad", viewW + " x " + viewH);
 
 //        x = findViewById(R.id.vX);
 //        y = findViewById(R.id.vY);
@@ -42,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         myListener = new MyListener();
-        sensorManager.registerListener(myListener, sensor, SensorManager.SENSOR_DELAY_UI);
+        sensorManager.registerListener(myListener, sensor,
+                SensorManager.SENSOR_DELAY_GAME);
 
     }
 
@@ -60,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
 //            x.setText("" + (int)(values[0]*100)/100f);
 //            y.setText("" + (int)(values[1]*100)/100f);
 //            z.setText("" + (int)(values[2]*100)/100f);
+
+            float fx = values[0];
+            float fy = values[1]*-1;
+            changeXY(fx, fy);
+
         }
 
         @Override
@@ -67,5 +81,12 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+    private void changeXY(float x, float y){
+        float xx = x*viewW/20 + viewW/2;
+        float yy = y*viewH/20 + viewH/2;
+        myView.setXY(xx, yy);
+    }
+
 
 }
