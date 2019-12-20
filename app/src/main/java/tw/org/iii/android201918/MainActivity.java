@@ -10,6 +10,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -17,11 +18,16 @@ public class MainActivity extends AppCompatActivity {
     private SensorManager sensorManager;
     private Sensor sensor;
     private MyListener myListener;
+    private TextView x, y,z;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        x = findViewById(R.id.vX);
+        y = findViewById(R.id.vY);
+        z = findViewById(R.id.vZ);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 //        List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_ALL);
@@ -50,7 +56,10 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onSensorChanged(SensorEvent event) {
-
+            float[] values = event.values;
+            x.setText("" + (int)(values[0]*100)/100f);
+            y.setText("" + (int)(values[1]*100)/100f);
+            z.setText("" + (int)(values[2]*100)/100f);
         }
 
         @Override
